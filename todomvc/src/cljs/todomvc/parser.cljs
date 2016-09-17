@@ -57,6 +57,15 @@
        (swap! state
          #(reduce step % (:todos/list %)))))})
 
+(defmethod mutate 'todos/delete
+  [{:keys [state]} _ {:keys [db/id]}]
+  {:remote true
+   :action
+    (fn []
+      (let [st @state]
+        (swap! state update-in [:todos/list]
+          (partial remove #{[:todos/by-id id]}))))})
+
 (defmethod mutate 'todo/update
   [{:keys [state ref]} _ new-props]
   {:remote true

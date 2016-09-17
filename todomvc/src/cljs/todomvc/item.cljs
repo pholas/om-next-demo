@@ -63,7 +63,7 @@
 (defn delete-button [c {:keys [db/id]}]
   (dom/button
     #js {:className "destroy"
-         :onClick (fn [_] (om/transact! c `[(todo/delete {:db/id ~id})]))}))
+         :onClick (fn [_] (om/transact! c `[(todos/delete {:db/id ~id})]))}))
 
 (defn edit-field [c props]
   (dom/input

@@ -68,7 +68,7 @@
            (when title
              {:todo/title title}))]))})
 
-(defmethod mutatef 'todo/delete
+(defmethod mutatef 'todos/delete
   [{:keys [conn]} k {:keys [db/id]}]
   {:value {:keys [:todos/list]}
    :action
