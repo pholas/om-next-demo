@@ -11,9 +11,9 @@
      :figwheel true
      :source-paths ["src/cljs"]
      :compiler {:main 'todomvc.core
-                :asset-path "/js"
-                :output-to "resources/public/js/app.js"
-                :output-dir "resources/public/js"
+                :asset-path "/js/compiled/out"
+                :output-to "resources/public/js/compiled/app.js"
+                :output-dir "resources/public/js/compiled/out"
                 :optimizations :none
                 :static-fns true
                 :optimize-constants true

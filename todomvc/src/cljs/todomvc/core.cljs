@@ -58,33 +58,34 @@
       (doto e (.preventDefault) (.stopPropagation)))
     nil))
 
+
 (defui Todos
-  static om/IQueryParams
-  (params [this]
-    {:todo-item (om/get-query item/TodoItem)})
+    static om/IQueryParams
+    (params [this]
+      {:todo-item (om/get-query item/TodoItem)})
 
-  static om/IQuery
-  (query [this]
-    '[{:todos/list ?todo-item}])
+    static om/IQuery
+    (query [this]
+      '[{:todos/list ?todo-item}])
 
-  Object
-  (render [this]
-    (let [props (merge (om/props this) {:todos/showing :all})
-          {:keys [todos/list]} props
-          active (count (remove :todo/completed list))
-          completed (- (count list) active)]
-      (dom/div nil
-        (dom/header #js {:id "header"}
-          (dom/h1 nil "todos")
-          (dom/input
-            #js {:ref "newField"
-                 :id "new-todo"
-                 :value (om/get-state this :edit-text)
-                 :placeholder "What needs to be done?"
-                 :onChange #(item/change this %)
-                 :onKeyDown #(key-down this props %)})
-          (main this props)
-          (footer this props active completed))))))
+    Object
+    (render [this]
+      (let [props (merge (om/props this) {:todos/showing :all})
+            {:keys [todos/list]} props
+            active (count (remove :todo/completed list))
+            completed (- (count list) active)]
+        (dom/div nil
+          (dom/header #js {:id "header"}
+            (dom/h1 nil "todos")
+            (dom/input
+              #js {:ref "newField"
+                   :id "new-todo"
+                   :value (om/get-state this :edit-text)
+                   :placeholder "What needs to be done?"
+                   :onChange #(item/change this %)
+                   :onKeyDown #(key-down this props %)})
+            (main this props)
+            (footer this props active completed))))))
 
 (def todos (om/factory Todos))
 
@@ -96,3 +97,9 @@
      :send      (util/transit-post "/api")}))
 
 (om/add-root! reconciler Todos (gdom/getElement "todoapp"))
+
+(defn on-js-reload []
+  ;; optionally touch your app-state to force rerendering depending on
+  ;; your application
+  ;; (swap! app-state update-in [:__figwheel_counter] inc)
+  )
