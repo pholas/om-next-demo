@@ -19,7 +19,7 @@
 
                  [figwheel-sidecar "0.5.0-6" :scope "test"]]
   :clean-targets ^{:protect false} ["resources/public/js"]
-  :source-paths ["src/clj" "src/cljs" "src/dev"]
+  :source-paths ["src/clj" "src/cljs"]
   :plugins [[lein-figwheel "0.5.16"]
             [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
 
@@ -57,7 +57,7 @@
                                   [figwheel-sidecar "0.5.16"]
                                   [cider/piggieback "0.3.1"]]
                    ;; need to add dev source path here to get user.clj loaded
-                   :source-paths ["src/cljs" "dev/cljs"]
+                   :source-paths ["src/dev"]
                    ;; :plugins [[cider/cider-nrepl "0.18.0"]]
                    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
                    ;; need to add the compliled assets to the :clean-targets
