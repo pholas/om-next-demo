@@ -11,15 +11,15 @@
      :figwheel true
      :source-paths ["src/cljs"]
      :compiler {:main 'todomvc.core
-                :asset-path "/js/compiled/out"
-                :output-to "resources/public/js/compiled/app.js"
-                :output-dir "resources/public/js/compiled/out"
-                ;; :optimizations :none
-                ;; :static-fns true
-                ;;  :optimize-constants true
-                ;;  :pretty-print true
-                ;;  :externs ["src/js/externs.js"]
-                ;;  :closure-defines '{goog.DEBUG true}
+                :asset-path "/js"
+                :output-to "resources/public/js/app.js"
+                :output-dir "resources/public/js"
+                :optimizations :none
+                :static-fns true
+                :optimize-constants true
+                :pretty-print true
+                :externs ["src/js/externs.js"]
+                :closure-defines '{goog.DEBUG true}
                 :verbose true}}]})
 
 (defrecord Figwheel []
@@ -52,6 +52,4 @@
 (defn repl []
   (ra/cljs-repl))
 
-(start)
-(repl)
 ;;lein run -m clojure.main --init script/figwheel.clj --repl
