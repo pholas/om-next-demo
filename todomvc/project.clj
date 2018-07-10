@@ -7,17 +7,17 @@
   :jvm-opts ^:replace ["-Xms512m" "-Xmx512m" "-server"]
 
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.10.238"]
+                 [org.clojure/clojurescript "1.10.339"]
                  [com.datomic/datomic-free "0.9.5697" :exclusions [com.google.guava/guava]]
-                 [bidi "1.25.0"]
+                 [bidi "2.1.3" :exclusions [ring/ring-core]]
                  [org.omcljs/om "1.0.0-alpha46"]
-                 [ring/ring "1.4.0"]
-                 [com.cognitect/transit-clj "0.8.285"]
-                 [com.cognitect/transit-cljs "0.8.237"]
-                 [com.stuartsierra/component "0.3.1"]
-                 [com.cemerick/piggieback "0.2.1"]
+                 [ring/ring "1.6.3"]
+                 [com.cognitect/transit-clj "0.8.309"]
+                 [com.cognitect/transit-cljs "0.8.256"]
+                 [com.stuartsierra/component "0.3.2"]
+                 [com.cemerick/piggieback "0.2.2"]
 
-                 [figwheel-sidecar "0.5.0-6" :scope "test"]]
+                 [figwheel-sidecar "0.5.16" :scope "test"]]
   :clean-targets ^{:protect false} ["resources/public/js"]
   :source-paths ["src/clj" "src/cljs"]
   :plugins [[lein-figwheel "0.5.16"]
@@ -53,9 +53,9 @@
 
   :figwheel {:css-dirs ["resources/public/css"]}
 
-  :profiles {:dev {:dependencies [[binaryage/devtools "0.9.9"]
-                                  [figwheel-sidecar "0.5.16"]
-                                  [cider/piggieback "0.3.1"]]
+  :profiles {:dev {:dependencies [[binaryage/devtools "0.9.10"]
+                                  [figwheel-sidecar "0.5.16" :exclusions [org.clojure/tools.nrepl ring/ring-core]]
+                                  [cider/piggieback "0.3.6"]]
                    ;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src/dev"]
                    ;; :plugins [[cider/cider-nrepl "0.18.0"]]
