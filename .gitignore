@@ -6,3 +6,4 @@ todomvc/.nrepl*
 todomvc/figwheel_server.log
 .repl*
 .DS_Store
+todomvc/.rebel_readline_history

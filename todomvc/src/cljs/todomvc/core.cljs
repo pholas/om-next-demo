@@ -14,20 +14,22 @@
 ;; -----------------------------------------------------------------------------
 ;; Components
 
+
+
 (defn main [todos {:keys [todos/list] :as props}]
   (let [checked? (every? :todo/completed list)]
     (dom/section #js {:id "main" :style (hidden (empty? list))}
-      (dom/input
-        #js {:id       "toggle-all"
-             :type     "checkbox"
-             :onChange (fn [_]
-                         (om/transact! todos
-                           `[(todos/toggle-all
-                               {:value ~(not checked?)})
-                             :todos/list]))
-             :checked  checked?})
-      (apply dom/ul #js {:id "todo-list"}
-        (map item/item list)))))
+                 (dom/input
+                  #js {:id       "toggle-all"
+                       :type     "checkbox"
+                       :onChange (fn [_]
+                                   (om/transact! todos
+                                                 `[(todos/toggle-all
+                                                    {:value ""})
+                                                   :todos/list]))
+                       :checked  checked?})
+                 (apply dom/ul #js {:id "todo-list"}
+                        (map item/item list)))))
 
 (defn clear-button [todos completed]
   (when (pos? completed)
@@ -66,32 +68,33 @@
     (dom/div nil "Hello, world!")))
 
 (defui Todos
-    static om/IQueryParams
-    (params [this]
-      {:todo-item (om/get-query item/TodoItem)})
+  static om/IQueryParams
+  (params [this]
+    {:todo-item (om/get-query item/TodoItem)})
 
-    static om/IQuery
-    (query [this]
-      '[{:todos/list ?todo-item}])
+  static om/IQuery
+  (query [this]
+    '[{:todos/list ?todo-item}])
 
-    Object
-    (render [this]
-      (let [props (merge (om/props this) {:todos/showing :all})
-            {:keys [todos/list]} props
-            active (count (remove :todo/completed list))
-            completed (- (count list) active)]
-        (dom/div nil
-          (dom/header #js {:id "header"}
-            (dom/h1 nil "todos")
-            (dom/input
-              #js {:ref "newField"
-                   :id "new-todo"
-                   :value (om/get-state this :edit-text)
-                   :placeholder "What needs to be done?"
-                   :onChange #(item/change this %)
-                   :onKeyDown #(key-down this props %)})
-            (main this props)
-            (footer this props active completed))))))
+  Object
+  (render [this]
+    (let [props (merge (om/props this) {:todos/showing :all})
+          {:keys [todos/list]} props
+          active (count (remove :todo/completed list))
+          completed (- (count list) active)
+          new-field-value (om/get-state this :edit-text)]
+      (dom/div nil
+               (dom/header #js {:id "header"}
+                           (dom/h1 nil "todos")
+                           (dom/input
+                            #js {:ref "newField"
+                                 :id "new-todo"
+                                 :value ""
+                                 :placeholder "What needs to be done?"
+                                 :onChange #(item/change this %)
+                                 :onKeyDown #(key-down this props %)})
+                           (main this props)
+                           (footer this props active completed))))))
 
 (def todos (om/factory Todos))
 

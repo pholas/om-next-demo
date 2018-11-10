@@ -4,7 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :jvm-opts ^:replace ["-Xms512m" "-Xmx512m" "-server"]
+  :jvm-opts ^:replace ["-Xms2g" "-Xmx2g" "-server"]
 
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.339"]
@@ -15,13 +15,17 @@
                  [com.cognitect/transit-clj "0.8.309"]
                  [com.cognitect/transit-cljs "0.8.256"]
                  [com.stuartsierra/component "0.3.2"]
-                 [com.cemerick/piggieback "0.2.2"]
-
-                 [figwheel-sidecar "0.5.16" :scope "test"]]
+                 ;; [com.cemerick/piggieback "0.2.2"]
+                 [com.bhauman/rebel-readline "0.1.4"]
+                 [figwheel-sidecar "0.5.17"]
+                 ]
   :clean-targets ^{:protect false} ["resources/public/js"]
   :source-paths ["src/clj" "src/cljs"]
-  :plugins [[lein-figwheel "0.5.16"]
-            [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
+
+  :plugins [[lein-figwheel "0.5.17"]
+            ;; [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
+
+            ]
 
 
   :cljsbuild {:builds
@@ -54,12 +58,16 @@
   :figwheel {:css-dirs ["resources/public/css"]}
 
   :profiles {:dev {:dependencies [[binaryage/devtools "0.9.10"]
-                                  [figwheel-sidecar "0.5.16" :exclusions [org.clojure/tools.nrepl ring/ring-core]]
-                                  [cider/piggieback "0.3.6"]]
+                                  [figwheel-sidecar "0.5.17" ]
+                                  ;; [com.cemerick/piggieback "0.2.2"]
+                                  ;;[cider/piggieback "0.3.6"]
+                                  ]
                    ;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src/dev"]
                    ;; :plugins [[cider/cider-nrepl "0.18.0"]]
-                   :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
+                   ;;                :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
+                   ;;:repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
                    ;; need to add the compliled assets to the :clean-targets
-                   :clean-targets ^{:protect false} ["resources/public/js/compiled"
-                                                     :target-path]}})
+                   ;; :clean-targets ^{:protect false} ["resources/public/js" :target-path]
+
+                   }})

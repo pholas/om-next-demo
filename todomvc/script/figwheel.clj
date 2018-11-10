@@ -6,21 +6,8 @@
 (def figwheel-config
   {:figwheel-options {}
    :build-ids ["dev"]
-   :all-builds
-   [{:id "dev"
-     :figwheel true
-     :source-paths ["src/cljs"]
-     :compiler {:main 'todomvc.core
-                :asset-path "/js"
-                :output-to "resources/public/js/app.js"
-                :output-dir "resources/public/js"
-                :optimizations :none
-                :static-fns true
-                :optimize-constants true
-                :pretty-print true
-                :externs ["src/js/externs.js"]
-                :closure-defines '{goog.DEBUG true}
-                :verbose true}}]})
+   :all-builds (figwheel-sidecar.config/get-project-builds)
+   })
 
 (defrecord Figwheel []
   component/Lifecycle
